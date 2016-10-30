@@ -3,14 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>KgBlog</title>
+  <title>ionic安卓构建 | KgBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="KgBlog">
-<meta property="og:url" content="http://kinegratii.github.io/index.html">
+  <meta name="description" content="本文描述了ionic项目构建Android安装包的主要步骤。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ionic安卓构建">
+<meta property="og:url" content="http://kinegratii.github.io/2016/10/29/ionic-build-android/index.html">
 <meta property="og:site_name" content="KgBlog">
+<meta property="og:description" content="本文描述了ionic项目构建Android安装包的主要步骤。">
+<meta property="og:updated_time" content="2016-10-30T12:58:18.261Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KgBlog">
+<meta name="twitter:title" content="ionic安卓构建">
+<meta name="twitter:description" content="本文描述了ionic项目构建Android安装包的主要步骤。">
   
     <link rel="alternate" href="/atom.xml" title="KgBlog" type="application/atom+xml">
   
@@ -61,9 +65,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-ionic-build-android" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-ionic-build-android" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/10/29/ionic-build-android/" class="article-date">
   <time datetime="2016-10-29T12:48:00.000Z" itemprop="datePublished">2016-10-29</time>
@@ -80,8 +82,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/29/ionic-build-android/">ionic安卓构建</a>
+    <h1 class="article-title" itemprop="name">
+      ionic安卓构建
     </h1>
   
 
@@ -90,11 +92,19 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>本文描述了ionic项目构建Android安装包的主要步骤。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/10/29/ionic-build-android/#more">Read More</a>
-          </p>
-        
+<a id="more"></a>
+<h2 id="1-环境配置"><a href="#1-环境配置" class="headerlink" title="1 环境配置"></a>1 环境配置</h2><h3 id="1-1-添加Android平台"><a href="#1-1-添加Android平台" class="headerlink" title="1.1 添加Android平台"></a>1.1 添加Android平台</h3><p>执行  <code>ionic platform add android</code> 即可</p>
+<h3 id="1-2-Java路径配置"><a href="#1-2-Java路径配置" class="headerlink" title="1.2 Java路径配置"></a>1.2 Java路径配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PATH=path\to\bin\</div></pre></td></tr></table></figure>
+<h3 id="1-3-Android环境配置"><a href="#1-3-Android环境配置" class="headerlink" title="1.3 Android环境配置"></a>1.3 Android环境配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ANDROID_HOME=你的SDK目录</div></pre></td></tr></table></figure>
+<p>将 <code>%ANDROID_HOME%\tools\;%ANDROID_HOME%\platform_tools\</code> 加到PATH变量后面。</p>
+<h2 id="2-Android自动签名"><a href="#2-Android自动签名" class="headerlink" title="2 Android自动签名"></a>2 Android自动签名</h2><h2 id="2-1-配置release-signing-properties文件"><a href="#2-1-配置release-signing-properties文件" class="headerlink" title="2.1 配置release-signing.properties文件"></a>2.1 配置release-signing.properties文件</h2><ol>
+<li>在platforms\android目录新建名为release-signing.properties的文件，文件内容如下</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">storeFile=path/to/keystore</div><div class="line">keyAlias=your key alias</div><div class="line">storePassword=your store password</div><div class="line">keyPassword=your key password</div></pre></td></tr></table></figure>
+<p>备注：在windows下storeFile文件路径应使用Unix下的目录分隔符 <code>/</code>。</p>
+<h2 id="3-编译"><a href="#3-编译" class="headerlink" title="3 编译"></a>3 编译</h2><p>使用 <code>ionic build --release android</code> 编译即可，在\platforms\android\build\outputs\apk出现android-release.apk文件即是已签名的安装包。</p>
+<h2 id="4-注意事项"><a href="#4-注意事项" class="headerlink" title="4 注意事项"></a>4 注意事项</h2><p>在升级到ionic2时，使用 <code>ionic build --release android</code> 可能会出现 <code>✗ You cannot run iOS unless you are on Mac OSX.</code>的错误，可改为 <code>ionic build android --release</code> 即可。</p>
+
       
     </div>
     <footer class="article-footer">
@@ -104,54 +114,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-first-post" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/10/28/first-post/" class="article-date">
-  <time datetime="2016-10-28T05:48:54.000Z" itemprop="datePublished">2016-10-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/default/">default</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/28/first-post/">新的征程</a>
-    </h1>
+    <a href="/2016/10/28/first-post/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">新的征程</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>你说有一日总会名扬天下实现你抱负</p>
-</blockquote>
-<p>2016年10月28日，KgBlog博客重新启用，由静态博客引擎<a href="https://hexo.io/" target="_blank" rel="external">hexo</a>构建，新的征程即将开始！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://kinegratii.github.io/2016/10/28/first-post/" data-id="ciuwq0bax0001akl9dbqq90jp" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
 
 </section>
         
