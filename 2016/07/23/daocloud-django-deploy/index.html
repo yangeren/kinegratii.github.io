@@ -1,0 +1,635 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Django,DaoCloud,部署," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="本文介绍了在DaoCloud平台部署Django项目的方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用DaoCloud部署Django项目">
+<meta property="og:url" content="http://kinegratii.github.io/2016/07/23/daocloud-django-deploy/index.html">
+<meta property="og:site_name" content="Kinegratii的博客">
+<meta property="og:description" content="本文介绍了在DaoCloud平台部署Django项目的方法。">
+<meta property="og:updated_time" content="2016-11-01T12:43:20.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用DaoCloud部署Django项目">
+<meta name="twitter:description" content="本文介绍了在DaoCloud平台部署Django项目的方法。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://kinegratii.github.io/2016/07/23/daocloud-django-deploy/"/>
+
+
+  <title> 使用DaoCloud部署Django项目 | Kinegratii的博客 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Kinegratii的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你说有一日总会名扬天下实现你抱负</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用DaoCloud部署Django项目
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-23T14:56:00+08:00" content="2016-07-23">
+              2016-07-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文介绍了在DaoCloud平台部署Django项目的方法。</p>
+<a id="more"></a>
+<h2 id="1-DaoCloud云平台"><a href="#1-DaoCloud云平台" class="headerlink" title="1 DaoCloud云平台"></a>1 DaoCloud云平台</h2><p>关于DaoCloud云平台。<a href="https://www.daocloud.io/" target="_blank" rel="external">https://www.daocloud.io/</a></p>
+<blockquote>
+<p>DaoCloud 为用户提供了 Docker 镜像的自动构建和自动发布功能，当用户完成了 Dockerfile 和 daocloud.yml 文件的编写后，将应用代码推送到第三方代码托管平台上，将其与 DaoCloud 绑定后，在每次修改（commit）后，并将其推送到代码托管平台上，DaoCloud 会检测到代码的变动，并根据 Dockerfile 和 daocloud.yml 进行相应的构建和测试；当触发规定的构建事件（如 tag）时，DaoCloud 会将其进行镜像构建，并推送到相对应的所有生产环节中。</p>
+</blockquote>
+<h2 id="2-Django项目配置"><a href="#2-Django项目配置" class="headerlink" title="2 Django项目配置"></a>2 Django项目配置</h2><p>项目总布局如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">- wcp_platform/</div><div class="line">  - admin.py</div><div class="line">  - forms.py</div><div class="line">  - models.py</div><div class="line">  - views.py</div><div class="line">- wcp/</div><div class="line">  - daocloud_settings.py</div><div class="line">  - daocloud_wsgi.py</div><div class="line">  - settings.py</div><div class="line">  - test_settings.py</div><div class="line">  - urls.py</div><div class="line">  - wsgi.py</div><div class="line">- fixtures/</div><div class="line">  - user.json</div><div class="line">- static/</div><div class="line">- template/</div><div class="line">- Dockerfile</div><div class="line">- daocloud.yml</div><div class="line">- docker-entrypoint.sh</div><div class="line">- manage.py</div><div class="line">- requirements.txt</div></pre></td></tr></table></figure>
+<h2 id="3-基于daocloud的配置"><a href="#3-基于daocloud的配置" class="headerlink" title="3 基于daocloud的配置"></a>3 基于daocloud的配置</h2><h3 id="3-1-daocloud-settings模块"><a href="#3-1-daocloud-settings模块" class="headerlink" title="3.1 daocloud_settings模块"></a>3.1 daocloud_settings模块</h3><p>daocloud_settings模块重写了数据库配置（这里使用了mysql服务）和wsgi配置模块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">from __future__ import unicode_literals</div><div class="line">from .settings import *</div><div class="line">DATABASES = &#123;</div><div class="line">    &apos;default&apos;: &#123;</div><div class="line">        &apos;ENGINE&apos;: &apos;django.db.backends.mysql&apos;,</div><div class="line">        &apos;NAME&apos;: os.environ[&apos;MYSQL_INSTANCE_NAME&apos;],</div><div class="line">        &apos;USER&apos;: os.environ[&apos;MYSQL_USERNAME&apos;],</div><div class="line">        &apos;PASSWORD&apos;: os.environ[&apos;MYSQL_PASSWORD&apos;],</div><div class="line">        &apos;HOST&apos;: os.environ[&apos;MYSQL_PORT_3306_TCP_ADDR&apos;],</div><div class="line">        &apos;PORT&apos;: os.environ[&apos;MYSQL_PORT_3306_TCP_PORT&apos;],</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">WSGI_APPLICATION = wcp.daocloud_wsgi.application&apos;</div></pre></td></tr></table></figure>
+<h3 id="3-2-daocloud-wsgi模块"><a href="#3-2-daocloud-wsgi模块" class="headerlink" title="3.2 daocloud_wsgi模块"></a>3.2 daocloud_wsgi模块</h3><p>daocloud_wsgi.py模块设置了环境变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from __future__ import unicode_literals</div><div class="line">import os</div><div class="line">from django.core.wsgi import get_wsgi_application</div><div class="line">os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;wcp.daocloud_settings&quot;)</div><div class="line">application = get_wsgi_application()</div></pre></td></tr></table></figure>
+<h3 id="3-3-Dockerfile"><a href="#3-3-Dockerfile" class="headerlink" title="3.3 Dockerfile"></a>3.3 Dockerfile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">FROM daocloud.io/python:2.7</div><div class="line">ADD requirements.txt /tmp/requirements.txt</div><div class="line">RUN pip install -r /tmp/requirements.txt</div><div class="line">RUN mkdir /code</div><div class="line">WORKDIR /code</div><div class="line">COPY . /code</div><div class="line">COPY docker-entrypoint.sh docker-entrypoint.sh</div><div class="line">RUN chmod +x docker-entrypoint.sh</div><div class="line">EXPOSE 8080</div><div class="line">CMD /code/docker-entrypoint.sh</div></pre></td></tr></table></figure>
+<p>具体流程</p>
+<ul>
+<li>安装依赖库</li>
+<li>拷贝项目代码</li>
+<li>修改<code>docker-entrypoint.sh</code>权限为可执行</li>
+<li>开放端口</li>
+<li>执行<code>docker-entrypoint.sh</code></li>
+</ul>
+<h3 id="3-4-启动脚本"><a href="#3-4-启动脚本" class="headerlink" title="3.4 启动脚本"></a>3.4 启动脚本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ython /code/manage.py migrate --settings=wcp.daocloud_settings --noinput</div><div class="line">python /code/manage.py collectstatic -- settings=wcp.daocloud_settings --noinput</div><div class="line">/usr/local/bin/gunicorn wcp.daocloud_wsgi:application -w 2 -b :8080 --env DJANGO_SETTINGS_MODULE=&apos;wcp.daocloud_settings&apos;</div></pre></td></tr></table></figure>
+<p>启动流程</p>
+<ul>
+<li>创建数据表</li>
+<li>收集静态文件</li>
+<li>使用gunicorn启动Django项目</li>
+</ul>
+<h3 id="3-5-持续集成：daocloud-yml"><a href="#3-5-持续集成：daocloud-yml" class="headerlink" title="3.5 持续集成：daocloud.yml"></a>3.5 持续集成：daocloud.yml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">image: daocloud/ci-python:2.7</div><div class="line">script:</div><div class="line">  - pip install -r requirements.txt</div><div class="line">  - python manage.py test --settings=wcp.test_settings</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Django/" rel="tag">#Django</a>
+          
+            <a href="/tags/DaoCloud/" rel="tag">#DaoCloud</a>
+          
+            <a href="/tags/部署/" rel="tag">#部署</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/23/python-package/" rel="next" title="python打包工具">
+                <i class="fa fa-chevron-left"></i> python打包工具
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/28/first-post/" rel="prev" title="新的起点">
+                新的起点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Kinegratii" />
+          <p class="site-author-name" itemprop="name">Kinegratii</p>
+          <p class="site-description motion-element" itemprop="description">你说有一日总会名扬天下实现你抱负</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kinegratii" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/kinegratii" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-DaoCloud云平台"><span class="nav-text">1 DaoCloud云平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Django项目配置"><span class="nav-text">2 Django项目配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-基于daocloud的配置"><span class="nav-text">3 基于daocloud的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-daocloud-settings模块"><span class="nav-text">3.1 daocloud_settings模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-daocloud-wsgi模块"><span class="nav-text">3.2 daocloud_wsgi模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Dockerfile"><span class="nav-text">3.3 Dockerfile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-启动脚本"><span class="nav-text">3.4 启动脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-持续集成：daocloud-yml"><span class="nav-text">3.5 持续集成：daocloud.yml</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kinegratii</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
