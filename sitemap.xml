@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://kinegratii.github.io/about/index.html</loc>
+    
+    <lastmod>2016-11-20T01:04:25.791Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://kinegratii.github.io/2016/11/18/django-models-practice/</loc>
     
-    <lastmod>2016-11-18T13:02:37.038Z</lastmod>
+    <lastmod>2016-11-19T23:58:41.200Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://kinegratii.github.io/2015/08/30/python-ip-query/</loc>
+    
+    <lastmod>2016-11-19T23:56:27.028Z</lastmod>
     
   </url>
   
@@ -26,13 +40,6 @@
     <loc>http://kinegratii.github.io/2015/11/12/python-pytz-6-minutes/</loc>
     
     <lastmod>2016-11-01T12:53:44.931Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://kinegratii.github.io/2015/08/30/python-ip-query/</loc>
-    
-    <lastmod>2016-11-01T12:51:07.719Z</lastmod>
     
   </url>
   
