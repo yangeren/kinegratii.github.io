@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kinegratii.github.io/"/>
-  <updated>2016-11-19T23:58:41.200Z</updated>
+  <updated>2016-12-02T14:30:47.129Z</updated>
   <id>http://kinegratii.github.io/</id>
   
   <author>
@@ -16,13 +16,87 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>ionic2杂记</title>
+    <link href="http://kinegratii.github.io/2016/12/02/learning-ionic2/"/>
+    <id>http://kinegratii.github.io/2016/12/02/learning-ionic2/</id>
+    <published>2016-12-02T13:01:17.000Z</published>
+    <updated>2016-12-02T14:30:47.129Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录一些个人使用ionic2过程中的感受和碰到的问题。<br><a id="more"></a></p>
+<h2 id="1-技能链"><a href="#1-技能链" class="headerlink" title="1 技能链"></a>1 技能链</h2><blockquote>
+<p>Typescript –&gt; Angular2 –&gt; ionic2</p>
+</blockquote>
+<p>ionic2是基于Angular2开发，Angular2是使用Typescript重新改写的。Typescript是Javascript类型的超集。学习之前先列出相关中文文档。</p>
+<ul>
+<li><a href="http://www.tslang.cn/" target="_blank" rel="external">Typescript中文网</a></li>
+<li><a href="https://angular.cn/docs/ts/latest/quickstart.html" target="_blank" rel="external">Angular2中文文档</a></li>
+<li><a href="https://yanxiaodi.gitbooks.io/ionic2-guide/content/" target="_blank" rel="external">ionic2</a></li>
+</ul>
+<h2 id="2-Typescript"><a href="#2-Typescript" class="headerlink" title="2 Typescript"></a>2 Typescript</h2><p>和Javascript相比，在函数、接口、类、泛型都有很大的变化，总的来说，会使得程序更加明确，加强了面向对象的一些设计规范。</p>
+<h2 id="3-第三方js库与d-ts声明文件"><a href="#3-第三方js库与d-ts声明文件" class="headerlink" title="3 第三方js库与d.ts声明文件"></a>3 第三方js库与d.ts声明文件</h2><p>对于现有第三方js库，根据不同情况采取不同的策略。</p>
+<ul>
+<li>下载d.ts声明文件</li>
+<li>自己编写d.ts声明文件</li>
+<li>实现对应TypeScript的版本</li>
+</ul>
+<p>一些常用库诸如<code>underscope.js</code>可在github下载到对应的d.ts文件。</p>
+<p><a href="https://github.com/mumuy/relationship" target="_blank" rel="external">中国家庭称谓计算器</a>，该API项目逻辑复杂，但是接口只有一个，可以自己编写。以下是本人编写的相应d.ts文件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">interface RelationshipOptions &#123;</div><div class="line">	<span class="attr">text</span>:string;</div><div class="line">	sex:number;</div><div class="line">	type:string;</div><div class="line">	reverse?:boolean;</div><div class="line">&#125;</div><div class="line">declare <span class="function"><span class="keyword">function</span> <span class="title">relationship</span>(<span class="params">relationshipOptions:RelationshipOptions</span>):<span class="title">string</span>;</span></div></pre></td></tr></table></figure>
+<p>使用方式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// &lt;reference path="relationship.d.ts" /&gt;</span></div><div class="line"><span class="keyword">import</span> relationship = <span class="built_in">require</span>(<span class="string">'./relationship'</span>);</div><div class="line"></div><div class="line"><span class="keyword">let</span> s = relationship(&#123;</div><div class="line">	<span class="attr">text</span>:<span class="string">'爸爸的弟弟'</span>,</div><div class="line">	<span class="attr">sex</span>:<span class="number">1</span>,</div><div class="line">	<span class="attr">type</span>:<span class="string">'default'</span>,</div><div class="line">	<span class="attr">reverse</span>:<span class="literal">true</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(s); <span class="comment">//侄子</span></div></pre></td></tr></table></figure>
+<p>而项目引用的另一个库<a href="http://blog.jjonline.cn/userInterFace/173.html" target="_blank" rel="external">《1900年至2100年公历、农历互转Js代码》</a>，API也比较简单，但ionic1项目中对其进行了比较多的扩展（日期加减），因此采用重写自己的Typescript版本。项目地址 <a href="https://github.com/kinegratii/ts-calendars。" target="_blank" rel="external">https://github.com/kinegratii/ts-calendars。</a></p>
+<h2 id="4-版本与开发IDE"><a href="#4-版本与开发IDE" class="headerlink" title="4 版本与开发IDE"></a>4 版本与开发IDE</h2><p>目前ionic2版本为rc3，还未发布正式版，但按照版本规律，许多API已经稳定下来了，不像Beta的时候有项目布局那样大的改变，因此可以开始使用和迁移了。</p>
+<p>习惯了JetBrain系列的IDE，因此使用WebStorm进行开发，当然是用VS Code也是大家极力推荐的。</p>
+<h2 id="5-创建项目"><a href="#5-创建项目" class="headerlink" title="5 创建项目"></a>5 创建项目</h2><p>ionic2和ionic1相比，项目布局变化比较多，决定重新创建一个项目，不在原有的项目进行更改，使得一开始就符合ionic2的开发规范。</p>
+<p>使用下面的命令行创建一个ionic2项目。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ionic start FamilyApp --v2</div></pre></td></tr></table></figure>
+<p>默认使用tabs界面，创建了三个页面。</p>
+<h2 id="6-页面"><a href="#6-页面" class="headerlink" title="6 页面"></a>6 页面</h2><p>使用以下命令创建新的页面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ionic generate page more</div></pre></td></tr></table></figure>
+<p>在<code>src/pages/</code>创建以下三个文件。</p>
+<ul>
+<li><code>more/more.html</code> 模板文件</li>
+<li><code>more/more.scss</code> css样式</li>
+<li><code>more/more.ts</code> 组件代码</li>
+</ul>
+<p>并且将新页面加入模块<code>app.module.ts</code>文件中。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@NgModule(&#123;</div><div class="line">  declarations:[</div><div class="line">    # ...</div><div class="line">    MorePage,</div><div class="line">  ],</div><div class="line">  entryComponents:[</div><div class="line">    # ...</div><div class="line">    MorePage,</div><div class="line">  ]</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="7-导航"><a href="#7-导航" class="headerlink" title="7 导航"></a>7 导航</h2><p>习惯先创建所有的页面，完成跳转逻辑，最后再写各个页面的逻辑。</p>
+<p>ionic2的导航类似于Android，像一个简单的栈，可以进行push和remove操作。不使用url来决定导航，当然也可以这么做。</p>
+<p><code>no component factory found for AboutPage</code></p>
+<p>在刚使用导航（MorePage -&gt; AboutPage）时出现了这个错误，需要将AboutPage加到<code>app.module.ts</code>的<code>declarations</code>和<code>entryComponents</code>，两个都要添加。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录一些个人使用ionic2过程中的感受和碰到的问题。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="编程" scheme="http://kinegratii.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="Typescript" scheme="http://kinegratii.github.io/tags/Typescript/"/>
+    
+      <category term="ionic2" scheme="http://kinegratii.github.io/tags/ionic2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Django实践：数据库查询</title>
     <link href="http://kinegratii.github.io/2016/11/18/django-models-practice/"/>
     <id>http://kinegratii.github.io/2016/11/18/django-models-practice/</id>
     <published>2016-11-18T12:43:57.000Z</published>
-    <updated>2016-11-19T23:58:41.200Z</updated>
+    <updated>2016-12-01T13:29:50.517Z</updated>
     
     <content type="html"><![CDATA[<p>本文总结了一些Django数据库查询的实践经验。</p>
+<ul>
+<li>基本的增删改查</li>
+<li>分类统计：<code>aggregate</code>和<code>annotate</code>的使用</li>
+<li>实现按年/月/日统计</li>
+<li>Manager和QuerySet的混合使用</li>
+<li>编写迁移文件</li>
+</ul>
 <a id="more"></a>
 <h2 id="1概述"><a href="#1概述" class="headerlink" title="1概述"></a>1概述</h2><p>根据<a href="https://docs.djangoproject.com/en/1.10/" target="_blank" rel="external">Django官方文档</a>，本人整理出与数据库相关的话题列表，</p>
 <ul>
@@ -54,14 +128,29 @@
 <li>设备含有使用和报警两个状态标识变量。</li>
 <li><code>Alarm.catalog</code>表示警报类型，定义在choices上。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">class Device(models.Model):</div><div class="line">    serial = models.CharField(verbose_name=&apos;序列号&apos;, max_length=100, unique=True)</div><div class="line">    name = models.CharField(verbose_name=&apos;名称&apos;, max_length=100, null=True, blank=True)</div><div class="line">    longitude = models.FloatField(verbose_name=&apos;经度&apos;, null=True,</div><div class="line">                                  validators=[validators.MaxValueValidator(180), validators.MinValueValidator(-180)])</div><div class="line">    latitude = models.FloatField(verbose_name=&apos;纬度&apos;, null=True,</div><div class="line">                                 validators=[validators.MaxValueValidator(90), validators.MinValueValidator(-90)])</div><div class="line">    address = models.CharField(verbose_name=&apos;地址&apos;, max_length=100, null=True)</div><div class="line">    is_active = models.BooleanField(verbose_name=&apos;使用标识&apos;, default=True)</div><div class="line">    is_alarm = models.BooleanField(verbose_name=&apos;报警标识&apos;, default=False)</div><div class="line">    latest_alarm_time = models.DateTimeField(verbose_name=&apos;最新报警时间&apos;, null=True, blank=True)</div><div class="line">    latest_alarm_remark = models.CharField(verbose_name=&apos;最新报警内容&apos;, max_length=200, null=True, blank=True)</div><div class="line">    def __str__(self):</div><div class="line">        return self.serial</div><div class="line"></div><div class="line">class Alarm(models.Model):</div><div class="line">    device = models.ForeignKey(Device, verbose_name=&apos;消防栓&apos;)</div><div class="line">    create_time = models.DateTimeField(verbose_name=&apos;创建时间&apos;, default=timezone.now)</div><div class="line">    catalog = models.CharField(max_length=30, null=True)</div><div class="line">    content = models.CharField(verbose_name=&apos;内容&apos;, max_length=30, null=True, blank=True)</div><div class="line">    longitude = models.FloatField(verbose_name=&apos;经度&apos;, null=True,</div><div class="line">                                  validators=[validators.MaxValueValidator(180), validators.MinValueValidator(-180)])</div><div class="line">    latitude = models.FloatField(verbose_name=&apos;纬度&apos;, null=True,</div><div class="line">                                 validators=[validators.MaxValueValidator(90), validators.MinValueValidator(-90)])</div><div class="line">    address = models.CharField(verbose_name=&apos;地址&apos;, max_length=100, null=True)</div><div class="line">    read = models.BooleanField(verbose_name=&apos;已读&apos;, default=False)</div></pre></td></tr></table></figure>
-<h3 id="2-2-查询一览表"><a href="#2-2-查询一览表" class="headerlink" title="2.2 查询一览表"></a>2.2 查询一览表</h3><h4 id="2-2-1-检索、过滤、外键查询、分页"><a href="#2-2-1-检索、过滤、外键查询、分页" class="headerlink" title="2.2.1 检索、过滤、外键查询、分页"></a>2.2.1 检索、过滤、外键查询、分页</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"># 查询mac地址为&apos;0FFFFFFF561C4030&apos;的设备</div><div class="line">try:</div><div class="line">    device = models.Device.objects.get(serial=&apos;0FFFFFFF561C4030&apos;)</div><div class="line">except models.Device.DoesNotExist:</div><div class="line">    device = None</div><div class="line"></div><div class="line">&lt;Device:0FFFFFFF561C4030&gt;</div><div class="line"></div><div class="line"># Q2 查询地址包含“小区”的设备。</div><div class="line">&gt;&gt;&gt; device_list = models.Device.objects.filter(address__icontains=&apos;小区&apos;)</div><div class="line">&lt;QuerySet [&lt;Device: 0FFFFFFF5BC91F87&gt;, &lt;Device: 0FFFFFFF561C4030&gt;, ...]&gt;</div><div class="line"></div><div class="line"># 查询设备&apos;0FFFFFFF5BC91F87&apos;的所有报警记录</div><div class="line">models.Alarm.objects.filter(device__serial=&apos;0FFFFFFF5BC91F87&apos;)</div><div class="line"></div><div class="line"># 假设，设备列表每页20项，查询第3页的数据。</div><div class="line">device_list = models.Device.objects.all()[20:30]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">class Device(models.Model):</div><div class="line">    serial = models.CharField(verbose_name=&apos;序列号&apos;, max_length=100, unique=True)</div><div class="line">    name = models.CharField(verbose_name=&apos;名称&apos;, max_length=100, null=True, blank=True)</div><div class="line">    longitude = models.FloatField(verbose_name=&apos;经度&apos;, null=True,</div><div class="line">                                  validators=[validators.MaxValueValidator(180), validators.MinValueValidator(-180)])</div><div class="line">    latitude = models.FloatField(verbose_name=&apos;纬度&apos;, null=True,</div><div class="line">                                 validators=[validators.MaxValueValidator(90), validators.MinValueValidator(-90)])</div><div class="line">    address = models.CharField(verbose_name=&apos;地址&apos;, max_length=100, null=True)</div><div class="line">    is_active = models.BooleanField(verbose_name=&apos;使用标识&apos;, default=True)</div><div class="line">    is_alarm = models.BooleanField(verbose_name=&apos;报警标识&apos;, default=False)</div><div class="line">    latest_alarm_time = models.DateTimeField(verbose_name=&apos;最新报警时间&apos;, null=True, blank=True)</div><div class="line">    latest_alarm_remark = models.CharField(verbose_name=&apos;最新报警内容&apos;, max_length=200, null=True, blank=True)</div><div class="line">    def __str__(self):</div><div class="line">        return self.serial</div><div class="line"></div><div class="line">class Alarm(models.Model):</div><div class="line">    ALARM_CATALOG_CHOICES = (</div><div class="line">          (&apos;low_battery&apos;, &apos;低电量&apos;),</div><div class="line">          (&apos;fail_connection&apos;, &apos;通信故障&apos;),</div><div class="line">          (&apos;location_moved&apos;, &apos;位置移动&apos;)</div><div class="line">      )</div><div class="line">    device = models.ForeignKey(Device, verbose_name=&apos;设备&apos;)</div><div class="line">    create_time = models.DateTimeField(verbose_name=&apos;创建时间&apos;, default=timezone.now)</div><div class="line">    catalog = models.CharField(max_length=30, null=True, choices=ALARM_CATALOG_CHOICES)</div><div class="line">    content = models.CharField(verbose_name=&apos;内容&apos;, max_length=30, null=True, blank=True)</div><div class="line">    longitude = models.FloatField(verbose_name=&apos;经度&apos;, null=True,</div><div class="line">                                  validators=[validators.MaxValueValidator(180), validators.MinValueValidator(-180)])</div><div class="line">    latitude = models.FloatField(verbose_name=&apos;纬度&apos;, null=True,</div><div class="line">                                 validators=[validators.MaxValueValidator(90), validators.MinValueValidator(-90)])</div><div class="line">    address = models.CharField(verbose_name=&apos;地址&apos;, max_length=100, null=True)</div><div class="line">    read = models.BooleanField(verbose_name=&apos;已读&apos;, default=False)</div></pre></td></tr></table></figure>
+<h3 id="2-2-查询一览表"><a href="#2-2-查询一览表" class="headerlink" title="2.2 查询一览表"></a>2.2 查询一览表</h3><h4 id="2-2-1-检索、过滤、外键查询、分页"><a href="#2-2-1-检索、过滤、外键查询、分页" class="headerlink" title="2.2.1 检索、过滤、外键查询、分页"></a>2.2.1 检索、过滤、外键查询、分页</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"># 查询mac地址为&apos;0FFFFFFF561C4030&apos;的设备</div><div class="line">try:</div><div class="line">    device = models.Device.objects.get(serial=&apos;0FFFFFFF561C4030&apos;)</div><div class="line">except models.Device.DoesNotExist:</div><div class="line">    device = None</div><div class="line"></div><div class="line">&lt;Device:0FFFFFFF561C4030&gt;</div><div class="line"></div><div class="line"># 查询地址包含“小区”的设备。</div><div class="line">&gt;&gt;&gt; device_list = models.Device.objects.filter(address__icontains=&apos;小区&apos;)</div><div class="line">&lt;QuerySet [&lt;Device: 0FFFFFFF5BC91F87&gt;, &lt;Device: 0FFFFFFF561C4030&gt;, ...]&gt;</div><div class="line"></div><div class="line"># 查询设备&apos;0FFFFFFF5BC91F87&apos;的所有报警记录</div><div class="line">models.Alarm.objects.filter(device__serial=&apos;0FFFFFFF5BC91F87&apos;)</div><div class="line"></div><div class="line"># 假设设备列表每页20项，查询第3页的数据。</div><div class="line">device_list = models.Device.objects.all()[20:30]</div></pre></td></tr></table></figure>
 <h4 id="2-2-2-更新"><a href="#2-2-2-更新" class="headerlink" title="2.2.2 更新"></a>2.2.2 更新</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># 单记录更新</div><div class="line">try:</div><div class="line">    device = models.Device.objects.get(serial=&apos;0FFFFFFF561C4030&apos;)</div><div class="line">    device.is_active = False</div><div class="line">    device.save()</div><div class="line">except models.Device.DoesNotExist:</div><div class="line">    pass</div><div class="line"></div><div class="line"># 多记录更新</div><div class="line">models.Device.objects.filter(serial__in=[&apos;0FFFFFFF561C4030&apos;, &apos;0FFFFFFF56174CA0&apos;]).update(is_active=False)</div><div class="line"></div><div class="line"># 去掉所有设备地址中“福建省”的前缀，比如“福建省厦门市Xxxx”改为&quot;厦门市Xxxx&quot;。</div><div class="line">models.Device.objects.filter(address__isnull=False).update(address=F(&apos;address&apos;).strip(&apos;福建省&apos;))</div></pre></td></tr></table></figure>
-<h4 id="2-2-3-删除"><a href="#2-2-3-删除" class="headerlink" title="2.2.3 删除"></a>2.2.3 删除</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># 删除单条记录</div><div class="line">try:</div><div class="line">    device = models.Device.objects.get(serial=&apos;0FFFFFFF561C4030&apos;)</div><div class="line">    device.is_active = False</div><div class="line">    device.delete()</div><div class="line">except models.Device.DoesNotExist:</div><div class="line">    pass</div><div class="line"></div><div class="line"># 批量删除</div><div class="line">models.Alarm.objects.filter(serial=&apos;0FFFFFFF561C4030&apos;).delete()</div><div class="line"># 由于delete只是QuerySet的方法，并没有向Manager公开</div><div class="line">models.Alarm.objects.all().delete() # OK</div><div class="line">models.Alarm.objects.delete() # Fail</div></pre></td></tr></table></figure>
-<h4 id="2-2-4-统计"><a href="#2-2-4-统计" class="headerlink" title="2.2.4 统计"></a>2.2.4 统计</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"># 计算设备0FFFFFFF561C4030所有的报警数目。</div><div class="line">models.Alarm.objects.filter(device__serial=&apos;0FFFFFFF561C4030&apos;).count()</div><div class="line"># 165</div><div class="line"></div><div class="line"># 计算每个设备的报警数目。</div><div class="line">&gt;&gt;&gt; device_list = models.Device.objects.annotate(num_alarms=Count(&apos;alarm&apos;))</div><div class="line">&gt;&gt;&gt; device_list</div><div class="line">&lt;QuerySet [&lt;Device: 0FFFFFFF561C4021&gt;, &lt;Device: 0FFFFFFF561C4030&gt;, ...]&gt;</div><div class="line">&gt;&gt;&gt; device_list [0].num_alarms</div><div class="line">34</div><div class="line"></div><div class="line"># 查询最近一个月报警次数最多的前5个设备。</div><div class="line">models.Alarm.objects.values(&apos;serial&apos;).annotate(num_alarms=models.Count(&apos;serial&apos;)).order_by(&apos;num_alarms&apos;)[:5]</div><div class="line"></div><div class="line">[</div><div class="line">&#123;&apos;serial&apos;:&apos;0FFFFFFF9FFC15F9&apos;, &apos;num_alarms&apos;:38&#125;,</div><div class="line">&#123;&apos;serial&apos;:&apos;0FFFFFFF71281152&apos;, &apos;num_alarms&apos;:32&#125;,</div><div class="line">&#123;&apos;serial&apos;:&apos;0FFFFFFF5992B723&apos;, &apos;num_alarms&apos;:27&#125;,</div><div class="line">&#123;&apos;serial&apos;:&apos;0FFFFFFF05E20356&apos;, &apos;num_alarms&apos;:21&#125;,</div><div class="line">&#123;&apos;serial&apos;:&apos;0FFFFFFF66DDF14D&apos;, &apos;num_alarms&apos;:12&#125;,</div><div class="line">]</div><div class="line"></div><div class="line"># 查询每个报警类型的报警数目</div><div class="line">models.Alarm.objects.aggregate(</div><div class="line">            fail_connection=Coalesce(Sum(</div><div class="line">                Case(When(catalog=&apos;fail_connection&apos;, then=1), output_field=models.IntegerField()),</div><div class="line">            ), 0),</div><div class="line">            low_battery=Coalesce(Sum(</div><div class="line">                Case(When(catalog=&apos;low_battery&apos;, then=1), output_field=models.IntegerField()),</div><div class="line">            ), 0)</div><div class="line">        )</div><div class="line"></div><div class="line">&#123;‘fail_connection’：12， ‘low_battery’：34&#125;</div><div class="line"></div><div class="line"># 查询每个报警类型的报警数目。</div><div class="line">&gt;&gt;&gt; models.Alarm.objects.values(&apos;catalog&apos;, &apos;content&apos;).annotate(count=Count(&apos;catalog&apos;))</div><div class="line">&#123;&apos;low_battary&apos;:None, &apos;content&apos;:&apos;低电量&apos;&#125;,&#123;&apos;fail_connection&apos;:3，&apos;content&apos;:&apos;通讯故障&apos;&#125;</div><div class="line">&gt;&gt;&gt; models.Alarm.objects.values(&apos;catalog&apos;, &apos;content&apos;).annotate(count=Coalesce(Count(&apos;catalog&apos;), 0))</div><div class="line">&#123;&apos;low_battary&apos;:0, &apos;content&apos;:&apos;低电量&apos;&#125;,&#123;&apos;fail_connection&apos;:3，&apos;content&apos;:&apos;通讯故障&apos;&#125;</div><div class="line"></div><div class="line"># 查询mac地址为`0FFFFFFF561C4030`的设备最近一周每天报警次数。</div><div class="line">models.Alarm.objects.filter(serial=&apos;0FFFFFFF561C4030&apos;, create_time__gt=timezone.now()-timedelta(days=7)).extra(</div><div class="line">    select=&#123;&apos;dt&apos;: connection.ops.date_trunc_sql(&apos;day&apos;, &apos;create_time&apos;)&#125;</div><div class="line">).values(&apos;dt&apos;).annotate(count=models.Count(&apos;create_time&apos;)).order_by(&apos;dt&apos;)</div><div class="line"></div><div class="line">[</div><div class="line">    &#123;&apos;count&apos;:4, &apos;dt&apos;:datetime.datetime(2016, 11, 08, 0, 0, 0,0)&#125;,</div><div class="line">    &#123;&apos;count&apos;:2, &apos;dt&apos;:datetime.datetime(2016, 11, 11, 0, 0, 0,0)&#125;,</div><div class="line">    &#123;&apos;count&apos;:1, &apos;dt&apos;:datetime.datetime(2016, 11, 12, 0, 0, 0,0)&#125;</div><div class="line">]</div><div class="line"># 在Django 1.10+ 还可以使用`DateExtra`相关类</div><div class="line">models.Alarm.objects.filter(serial=&apos;0FFFFFFF561C4030&apos;, create_time__gt=timezone.now()-timedelta(days=7))</div><div class="line">    annotate(day=ExtractDay(&apos;create_time&apos;))</div></pre></td></tr></table></figure>
+<h4 id="2-2-3-删除"><a href="#2-2-3-删除" class="headerlink" title="2.2.3 删除"></a>2.2.3 删除</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"># 删除单条记录</div><div class="line">try:</div><div class="line">    device = models.Device.objects.get(serial=&apos;0FFFFFFF561C4030&apos;)</div><div class="line">    device.delete()</div><div class="line">except models.Device.DoesNotExist:</div><div class="line">    pass</div><div class="line"></div><div class="line"># 批量删除</div><div class="line">models.Alarm.objects.filter(serial=&apos;0FFFFFFF561C4030&apos;).delete()</div><div class="line"># 由于delete只是QuerySet的方法，并没有向Manager公开，需要先调用all方法</div><div class="line">models.Alarm.objects.all().delete() # OK</div><div class="line">models.Alarm.objects.delete() # Fail</div></pre></td></tr></table></figure>
+<h4 id="2-2-4-基础统计"><a href="#2-2-4-基础统计" class="headerlink" title="2.2.4 基础统计"></a>2.2.4 基础统计</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"># 计算设备0FFFFFFF561C4030所有的报警数目。</div><div class="line">models.Alarm.objects.filter(device__serial=&apos;0FFFFFFF561C4030&apos;).count()</div><div class="line"># 165</div><div class="line"></div><div class="line"># 计算每个设备的报警数目。</div><div class="line">&gt;&gt;&gt; device_list = models.Device.objects.annotate(num_alarms=Count(&apos;alarm&apos;))</div><div class="line">&gt;&gt;&gt; device_list</div><div class="line">&lt;QuerySet [&lt;Device: 0FFFFFFF561C4021&gt;, &lt;Device: 0FFFFFFF561C4030&gt;, ...]&gt;</div><div class="line">&gt;&gt;&gt; device_list [0].num_alarms</div><div class="line">34</div><div class="line"></div><div class="line"># 查询最近一个月报警次数最多的前5个设备。</div><div class="line">models.Alarm.objects.values(&apos;serial&apos;).annotate(num_alarms=models.Count(&apos;serial&apos;)).order_by(&apos;num_alarms&apos;)[:5]</div><div class="line"></div><div class="line">[</div><div class="line">&#123;&apos;serial&apos;:&apos;0FFFFFFF9FFC15F9&apos;, &apos;num_alarms&apos;:38&#125;,</div><div class="line">&#123;&apos;serial&apos;:&apos;0FFFFFFF71281152&apos;, &apos;num_alarms&apos;:32&#125;,</div><div class="line">&#123;&apos;serial&apos;:&apos;0FFFFFFF5992B723&apos;, &apos;num_alarms&apos;:27&#125;,</div><div class="line">&#123;&apos;serial&apos;:&apos;0FFFFFFF05E20356&apos;, &apos;num_alarms&apos;:21&#125;,</div><div class="line">&#123;&apos;serial&apos;:&apos;0FFFFFFF66DDF14D&apos;, &apos;num_alarms&apos;:12&#125;,</div><div class="line">]</div></pre></td></tr></table></figure>
+<h4 id="2-2-5-分类统计"><a href="#2-2-5-分类统计" class="headerlink" title="2.2.5 分类统计"></a>2.2.5 分类统计</h4><p>分类统计有以下两种方法。</p>
+<ul>
+<li><code>aggregate</code> + 条件表达式Case，返回一个字典形式的结果，未出现的分类值默认为None，需要使用<code>Coalesce</code>类设置默认值为0</li>
+<li><code>annotate</code> + 分组GROUP BY，返回一个列表形式的结果，未出现的分类值不会出现在最后的结果中</li>
+</ul>
+<p>以查询最近30天中每个报警类型的报警数目为例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">latest_week_qs = models.Alarm.objects.filter(create_time__gt=timezone.now()-timedelta(days=30).</div><div class="line"># 查询每个报警类型的报警数目</div><div class="line">latest_week_qs.aggregate(</div><div class="line">    fail_connection=Coalesce(Sum(</div><div class="line">        Case(When(catalog=&apos;fail_connection&apos;, then=1), output_field=models.IntegerField()),</div><div class="line">    ), 0),</div><div class="line">    low_battery=Coalesce(Sum(</div><div class="line">        Case(When(catalog=&apos;low_battery&apos;, then=1), output_field=models.IntegerField()),</div><div class="line">    ), 0),</div><div class="line">    location_moved=Coalesce(Sum(</div><div class="line">        Case(When(catalog=&apos;location_moved&apos;, then=1), output_field=models.IntegerField()),</div><div class="line">    ), 0)</div><div class="line">)</div><div class="line"># 结果</div><div class="line">&#123;‘fail_connection’：12， &apos;low_battery&apos;：34, &apos;location_moved&apos;: 0&#125;</div><div class="line"></div><div class="line"># 查询每个报警类型的报警数目。</div><div class="line">latest_week_qs.values(&apos;catalog&apos;).annotate(count=Count(&apos;catalog&apos;))</div><div class="line"># 结果</div><div class="line">[&#123;&apos;catalog&apos;:&apos;low_battery&apos;, &apos;count&apos;:34&#125;,&#123;&apos;catalog&apos;:&apos;fail_connection&apos;， &apos;count&apos;: 12&#125;]</div></pre></td></tr></table></figure>
+<h4 id="2-2-6-日期统计"><a href="#2-2-6-日期统计" class="headerlink" title="2.2.6 日期统计"></a>2.2.6 日期统计</h4><p>实现按年、月、日统计通常有两种方法：</p>
+<ul>
+<li>数据库函数 <code>django.db.connection.ops.date_trunc_sql</code></li>
+<li>对第一种的封装类DateExtra，仅Django 1.10+可用</li>
+</ul>
+<p>以上两种结果中日期类型不一样，第一种返回时datetime对象，第二种只返回其中的分类字段，为整数类型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"># 查询mac地址为`0FFFFFFF561C4030`的设备最近一周每天报警次数。</div><div class="line">models.Alarm.objects.filter(serial=&apos;0FFFFFFF561C4030&apos;, create_time__gt=timezone.now()-timedelta(days=7)).extra(</div><div class="line">    select=&#123;&apos;dt&apos;: connection.ops.date_trunc_sql(&apos;day&apos;, &apos;create_time&apos;)&#125;</div><div class="line">).values(&apos;dt&apos;).annotate(count=models.Count(&apos;create_time&apos;)).order_by(&apos;dt&apos;)</div><div class="line"></div><div class="line">[</div><div class="line">    &#123;&apos;count&apos;:4, &apos;dt&apos;:datetime.datetime(2016, 11, 08, 0, 0, 0,0)&#125;,</div><div class="line">    &#123;&apos;count&apos;:2, &apos;dt&apos;:datetime.datetime(2016, 11, 11, 0, 0, 0,0)&#125;,</div><div class="line">    &#123;&apos;count&apos;:1, &apos;dt&apos;:datetime.datetime(2016, 11, 12, 0, 0, 0,0)&#125;</div><div class="line">]</div><div class="line"># 在Django 1.10+ 还可以使用`DateExtra`相关类</div><div class="line">models.Alarm.objects.filter(serial=&apos;0FFFFFFF561C4030&apos;, create_time__gt=timezone.now()-timedelta(days=7))</div><div class="line">    annotate(day=ExtractDay(&apos;create_time&apos;))</div><div class="line"># 结果</div><div class="line">&#123;</div><div class="line">  &apos;count&apos;:4, &apos;day&apos;: 8,</div><div class="line">  &apos;count&apos;:2, &apos;day&apos;: 11,</div><div class="line">  &apos;count&apos;:1, &apos;day&apos;: 12</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="2-3-小结"><a href="#2-3-小结" class="headerlink" title="2.3 小结"></a>2.3 小结</h3><ul>
 <li><code>django.db.models.Q</code>: 与、或、非条件组合查询</li>
 <li><code>django.db.models.F</code>: <code>F()</code>表示数据库中相应字段的值，用于计数器更新等。</li>
+<li><code>django.db.models.Functions.Coalesce</code>:接收一组参数，返回第一个不为None的数据，</li>
 </ul>
 <h2 id="3-管理器和查询集"><a href="#3-管理器和查询集" class="headerlink" title="3 管理器和查询集"></a>3 管理器和查询集</h2><h3 id="3-1-管理器与模型的关系"><a href="#3-1-管理器与模型的关系" class="headerlink" title="3.1 管理器与模型的关系"></a>3.1 管理器与模型的关系</h3><p>管理器是Django数据库查询的接口。查询语句<code>models.XxModels.objects.</code></p>
 <ul>
@@ -123,6 +212,13 @@
     <summary type="html">
     
       &lt;p&gt;本文总结了一些Django数据库查询的实践经验。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基本的增删改查&lt;/li&gt;
+&lt;li&gt;分类统计：&lt;code&gt;aggregate&lt;/code&gt;和&lt;code&gt;annotate&lt;/code&gt;的使用&lt;/li&gt;
+&lt;li&gt;实现按年/月/日统计&lt;/li&gt;
+&lt;li&gt;Manager和QuerySet的混合使用&lt;/li&gt;
+&lt;li&gt;编写迁移文件&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     
@@ -222,12 +318,19 @@
     <link href="http://kinegratii.github.io/2016/10/28/first-post/"/>
     <id>http://kinegratii.github.io/2016/10/28/first-post/</id>
     <published>2016-10-28T05:48:54.000Z</published>
-    <updated>2016-11-01T12:22:31.971Z</updated>
+    <updated>2016-12-01T13:29:50.517Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>你说有一日总会名扬天下实现你抱负</p>
 </blockquote>
-<p>2016年10月28日，KgBlog改用<a href="https://hexo.io/" target="_blank" rel="external">hexo</a>构建，新的起点。</p>
+<p>2016年10月28日，KgBlog重新启用，由之前的 <a href="http://www.getpelican.com" target="_blank" rel="external">Pelican</a> 改用 <a href="https://hexo.io/" target="_blank" rel="external">hexo</a>  构建，按照官方文档和相关资料将博客基本搭建完成。</p>
+<p>当然还有许多事情还没有完成。</p>
+<ul>
+<li>继续迁移之前的文章</li>
+<li>添加多说评论</li>
+<li>添加文章分享</li>
+<li>使用自定义域名</li>
+</ul>
 ]]></content>
     
     <summary type="html">
@@ -235,7 +338,7 @@
       &lt;blockquote&gt;
 &lt;p&gt;你说有一日总会名扬天下实现你抱负&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;2016年10月28日，KgBlog改用&lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hexo&lt;/a&gt;
+&lt;p&gt;2016年10月28日，KgBlog重新启用，由之前的 &lt;a href=&quot;http://www.getpelican.com&quot; target=&quot;_blank&quot; rel=&quot;e
     
     </summary>
     
@@ -440,6 +543,31 @@
   </entry>
   
   <entry>
+    <title>The Zen of Python</title>
+    <link href="http://kinegratii.github.io/2016/03/02/the-zen-of-python/"/>
+    <id>http://kinegratii.github.io/2016/03/02/the-zen-of-python/</id>
+    <published>2016-03-02T02:03:32.000Z</published>
+    <updated>2016-11-22T11:36:36.451Z</updated>
+    
+    <content type="html"><![CDATA[<p>The Zen of Python 是Python隐藏的彩蛋，输入<code>import this</code>即可显示出来。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">The Zen of Python, by Tim Peters</div><div class="line"></div><div class="line">Beautiful is better than ugly.</div><div class="line">Explicit is better than implicit.</div><div class="line">Simple is better than complex.</div><div class="line">Complex is better than complicated.</div><div class="line">Flat is better than nested.</div><div class="line">Sparse is better than dense.</div><div class="line">Readability counts.</div><div class="line">Special cases aren&apos;t special enough to break the rules.</div><div class="line">Although practicality beats purity.</div><div class="line">Errors should never pass silently.</div><div class="line">Unless explicitly silenced.</div><div class="line">In the face of ambiguity, refuse the temptation to guess.</div><div class="line">There should be one-- and preferably only one --obvious way to do it.</div><div class="line">Although that way may not be obvious at first unless you&apos;re Dutch.</div><div class="line">Now is better than never.</div><div class="line">Although never is often better than *right* now.</div><div class="line">If the implementation is hard to explain, it&apos;s a bad idea.</div><div class="line">If the implementation is easy to explain, it may be a good idea.</div><div class="line">Namespaces are one honking great idea -- let&apos;s do more of those!</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;The Zen of Python 是Python隐藏的彩蛋，输入&lt;code&gt;import this&lt;/code&gt;即可显示出来。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="编程" scheme="http://kinegratii.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="Python" scheme="http://kinegratii.github.io/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
     <title>pytz东八区6分钟问题</title>
     <link href="http://kinegratii.github.io/2015/11/12/python-pytz-6-minutes/"/>
     <id>http://kinegratii.github.io/2015/11/12/python-pytz-6-minutes/</id>
@@ -473,6 +601,81 @@
     
     
       <category term="pytz" scheme="http://kinegratii.github.io/tags/pytz/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>djcelery实践</title>
+    <link href="http://kinegratii.github.io/2015/10/22/djcelery-practice/"/>
+    <id>http://kinegratii.github.io/2015/10/22/djcelery-practice/</id>
+    <published>2015-10-22T02:17:40.000Z</published>
+    <updated>2016-11-22T11:36:36.342Z</updated>
+    
+    <content type="html"><![CDATA[<p>Celery是一个异步任务队列/基于分布式消息传递的作业队列。Celery通过消息（message）进行通信，使用代理（broker）在客户端和工作执行者之间进行交互。当开始一个任务时，客户端发送消息到队列并由代理将其发往响应的工作执行者处。。djcelery是其和Django框架一个很方便使用的第三方包。</p>
+<a id="more"></a>
+<h2 id="1-环境配置"><a href="#1-环境配置" class="headerlink" title="1 环境配置"></a>1 环境配置</h2><h3 id="1-1-安装ERLang"><a href="#1-1-安装ERLang" class="headerlink" title="1.1 安装ERLang"></a>1.1 安装ERLang</h3><ol>
+<li>首先是到ERLang官网去下载ERlang可执行文件  地址：<a href="http://www.erlang.org/download.html" target="_blank" rel="external">http://www.erlang.org/download.html</a></li>
+<li>然后安装ERLang。</li>
+<li>然后设置ERLang的环境变量。</li>
+<li>在环境变量中加入 <code>ERL_HOME = erlang安装目录</code></li>
+<li>在path中添加 <code>%ERL_HOME%\bin</code></li>
+</ol>
+<h3 id="1-2-安装rabbitmq"><a href="#1-2-安装rabbitmq" class="headerlink" title="1.2 安装rabbitmq"></a>1.2 安装rabbitmq</h3><p>从<a href="http://www.rabbitmq.com/releases/rabbitmq-server/v3.1.5/rabbitmq-server-3.1.5.exe下载rabbitmq-server" target="_blank" rel="external">http://www.rabbitmq.com/releases/rabbitmq-server/v3.1.5/rabbitmq-server-3.1.5.exe下载rabbitmq-server</a> 并安装。</p>
+<p> 点击开始菜单中的 rabbitmq-start ，rabbitmq-server就启动了，在管理工具-服务中可以看到相关信息的。</p>
+<h3 id="1-3-安装Djcelery"><a href="#1-3-安装Djcelery" class="headerlink" title="1.3 安装Djcelery"></a>1.3 安装Djcelery</h3><p>和大多数Python第三方包一样，用 pip安装celery和djcelery两个包。djcelery依赖于djcelery，所以只要执行pip install djcelery命令即可。</p>
+<h2 id="2-配置Djcelery"><a href="#2-配置Djcelery" class="headerlink" title="2 配置Djcelery"></a>2 配置Djcelery</h2><p>主要步骤</p>
+<ul>
+<li>在settings配置相关参数</li>
+<li>定义任务</li>
+<li>执行任务，可以在程序中调用执行，也可交给后台周期性执行</li>
+</ul>
+<h3 id="2-1-基本配置"><a href="#2-1-基本配置" class="headerlink" title="2.1 基本配置"></a>2.1 基本配置</h3><p>下面是Djcelery的有关配置，定义在Django项目的settings模块内。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#... ...</span></div><div class="line"></div><div class="line">INSTALLED_APPS = (</div><div class="line">    <span class="string">'django.contrib.auth'</span>,</div><div class="line">    <span class="string">'django.contrib.contenttypes'</span>,</div><div class="line">    <span class="string">'django.contrib.sessions'</span>,</div><div class="line">    <span class="string">'django.contrib.sites'</span>,</div><div class="line">    <span class="string">'django.contrib.messages'</span>,</div><div class="line">    <span class="string">'django.contrib.staticfiles'</span>,</div><div class="line">    <span class="comment"># Uncomment the next line to enable the admin:</span></div><div class="line">    <span class="string">'django.contrib.admin'</span>,</div><div class="line">    <span class="comment"># Uncomment the next line to enable admin documentation:</span></div><div class="line">    <span class="comment"># 'django.contrib.admindocs',</span></div><div class="line">    <span class="string">'djcelery'</span>,  <span class="comment">#添加djcelery</span></div><div class="line">     <span class="string">'mrs_app'</span>,  <span class="comment">#自己的APP</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="comment"># ... ....</span></div><div class="line"><span class="comment"># 配置djcelery相关参数，ResultStore默认存储在数据库可不必重写 ，</span></div><div class="line"><span class="keyword">import</span> djcelery</div><div class="line">djcelery.setup_loader()</div><div class="line">BROKER_URL = <span class="string">'amqp://guest:guest@localhost:5672//'</span></div><div class="line"><span class="comment">#任务定义所在的模块</span></div><div class="line">CELERY_IMPORTS = (<span class="string">'mrs_app.my_celery.tasks'</span>, )</div><div class="line"><span class="comment"># 使用和Django一样的时区</span></div><div class="line">CELERY_TIMEZONE = TIME_ZONE</div><div class="line"></div><div class="line"><span class="comment">#以上为基本配置，以下为周期性任务定义，以celerybeat_开头的  </span></div><div class="line"></div><div class="line">CELERYBEAT_SCHEDULER = <span class="string">'djcelery.schedulers.DatabaseScheduler'</span></div><div class="line"></div><div class="line"><span class="comment">#CELERYBEAT_SCHEDULE = &#123;</span></div><div class="line"><span class="comment">#    'add-every-3-minutes': &#123;</span></div><div class="line"><span class="comment">#        'task': 'mrs_app.my_celery.tasks.monthly_reading_task',</span></div><div class="line"><span class="comment">#        'schedule': timedelta(minutes=3)</span></div><div class="line"><span class="comment">#    &#125;,</span></div><div class="line"><span class="comment">#&#125;</span></div></pre></td></tr></table></figure>
+<h2 id="2-2-定义任务"><a href="#2-2-定义任务" class="headerlink" title="2.2 定义任务"></a>2.2 定义任务</h2><p>有两种格式</p>
+<ul>
+<li>类定义：一个继承了celery.app.task的类并实现了run方法</li>
+<li>函数定义：@task装饰的函数</li>
+</ul>
+<p>通过实现task相关方法可以实现更多的逻辑，比如成功回调、错误处理、重试机制等，以下是最基本的定义方式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#mrs_app.my_celery.tasks.py</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> task</div><div class="line"></div><div class="line">```python</div><div class="line"></div><div class="line"><span class="comment">#第一种，函数方式  </span></div><div class="line"><span class="meta"> @task(name='monthly_reading')</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">monthly_reading_task</span><span class="params">()</span>:</span></div><div class="line">    task_obj = MonthlyReading(debug=<span class="keyword">False</span>)</div><div class="line">    task_obj.start()</div><div class="line"></div><div class="line"><span class="comment">#第二种，类定义</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MonthlyReadingTask</span><span class="params">(Task)</span>:</span></div><div class="line">    name=<span class="string">'monthly_reading'</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(*args, **kwargs)</span>:</span></div><div class="line">        task_obj = MonthlyReading(debug=<span class="keyword">False</span>)</div><div class="line">        task_obj.start()</div></pre></td></tr></table></figure>
+<h3 id="2-3-启动"><a href="#2-3-启动" class="headerlink" title="2.3 启动"></a>2.3 启动</h3><ul>
+<li>启动 <code>python manage.py celery worker -l info</code></li>
+<li>如果有定时任务的话，还需要启动心跳<ul>
+<li>另开一个cmd窗口 <code>python manage.py celery beat</code>  （windows下-B选项不可用）</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-执行任务"><a href="#3-执行任务" class="headerlink" title="3 执行任务"></a>3 执行任务</h2><h3 id="3-1-直接调用"><a href="#3-1-直接调用" class="headerlink" title="3.1 直接调用"></a>3.1 直接调用</h3><p>自己在代码中的调用，支持延迟/同步/异步调用，可参考task类定义，例子见参考资料的《使用django+celery+RabbitMQ实现异步执行》。</p>
+<h3 id="3-2-周期性调用"><a href="#3-2-周期性调用" class="headerlink" title="3.2 周期性调用"></a>3.2 周期性调用</h3><p>这种由djcelery调用，所以需要在<code>settings.CELERYBEAT_SCHEDULER</code>设置一个调度器，这里使用数据库。</p>
+<p>djcelery提供了一些Model（定义在<code>djcelery/models.py</code>文件）</p>
+<p>说明：</p>
+<ul>
+<li>任务和定时任务的区别：定时任务 = 任务 + intervalschedule/crontabschedule 。两个定时任务可以执行同一个任务。</li>
+<li>任务没有相应的Model，用字符串表示，即periodictask模型的task字段</li>
+<li>定时任务有相应的Model即periodictask。</li>
+<li><p>djcelery在初始化中主要完成两件：</p>
+</li>
+<li><p>在<code>settings.CELERY_IMPORTS</code>定义下的模块搜索所有任务。这个对数据库没有任何改变，只是用Admin添加定时任务时periodictask.task字段变成选择框，列出了所有定义的任务。</p>
+</li>
+<li><p>从settings.CELERYBEAT_SCHEDULE创建定时任务，这个会创建数据记录，相当于<code>celery_models.PeriodicTask.objects.create(..)</code>语句。</p>
+</li>
+</ul>
+<h3 id="3-3-创建定时任务"><a href="#3-3-创建定时任务" class="headerlink" title="3.3 创建定时任务"></a>3.3 创建定时任务</h3><p>通过它提供的Model Query API来操作，同平常的数据库查询一样。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> djcelery <span class="keyword">import</span> models <span class="keyword">as</span> celery_models</div><div class="line"></div><div class="line">celery_models.PeriodicTask.objects.create(...)</div><div class="line">celery_models.PeriodicTask.ojects.get(name=<span class="string">'add'</span>)</div><div class="line">....</div></pre></td></tr></table></figure>
+<p>djcelery提供了admin管理界面，访问<code>http://localhost:8000/admin/djcelery/</code> 即可，在这里可以对定时任务进行增删改查，具体和Django admin一样。</p>
+<p>注：当我们修改任务的设置后，比如关闭、更改时间后不用重启celery服务等。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Celery是一个异步任务队列/基于分布式消息传递的作业队列。Celery通过消息（message）进行通信，使用代理（broker）在客户端和工作执行者之间进行交互。当开始一个任务时，客户端发送消息到队列并由代理将其发往响应的工作执行者处。。djcelery是其和Django框架一个很方便使用的第三方包。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="编程" scheme="http://kinegratii.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="Celery" scheme="http://kinegratii.github.io/tags/Celery/"/>
     
   </entry>
   
