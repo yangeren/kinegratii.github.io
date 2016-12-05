@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kinegratii.github.io/"/>
-  <updated>2016-12-02T14:30:47.129Z</updated>
+  <updated>2016-12-05T11:05:27.511Z</updated>
   <id>http://kinegratii.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://kinegratii.github.io/2016/12/02/learning-ionic2/"/>
     <id>http://kinegratii.github.io/2016/12/02/learning-ionic2/</id>
     <published>2016-12-02T13:01:17.000Z</published>
-    <updated>2016-12-02T14:30:47.129Z</updated>
+    <updated>2016-12-05T11:05:27.511Z</updated>
     
     <content type="html"><![CDATA[<p>记录一些个人使用ionic2过程中的感受和碰到的问题。<br><a id="more"></a></p>
 <h2 id="1-技能链"><a href="#1-技能链" class="headerlink" title="1 技能链"></a>1 技能链</h2><blockquote>
@@ -33,6 +33,7 @@
 <li><a href="https://yanxiaodi.gitbooks.io/ionic2-guide/content/" target="_blank" rel="external">ionic2</a></li>
 </ul>
 <h2 id="2-Typescript"><a href="#2-Typescript" class="headerlink" title="2 Typescript"></a>2 Typescript</h2><p>和Javascript相比，在函数、接口、类、泛型都有很大的变化，总的来说，会使得程序更加明确，加强了面向对象的一些设计规范。</p>
+<p>interface是接口，class是类。类可以实现接口。</p>
 <h2 id="3-第三方js库与d-ts声明文件"><a href="#3-第三方js库与d-ts声明文件" class="headerlink" title="3 第三方js库与d.ts声明文件"></a>3 第三方js库与d.ts声明文件</h2><p>对于现有第三方js库，根据不同情况采取不同的策略。</p>
 <ul>
 <li>下载d.ts声明文件</li>
@@ -41,7 +42,7 @@
 </ul>
 <p>一些常用库诸如<code>underscope.js</code>可在github下载到对应的d.ts文件。</p>
 <p><a href="https://github.com/mumuy/relationship" target="_blank" rel="external">中国家庭称谓计算器</a>，该API项目逻辑复杂，但是接口只有一个，可以自己编写。以下是本人编写的相应d.ts文件。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">interface RelationshipOptions &#123;</div><div class="line">	<span class="attr">text</span>:string;</div><div class="line">	sex:number;</div><div class="line">	type:string;</div><div class="line">	reverse?:boolean;</div><div class="line">&#125;</div><div class="line">declare <span class="function"><span class="keyword">function</span> <span class="title">relationship</span>(<span class="params">relationshipOptions:RelationshipOptions</span>):<span class="title">string</span>;</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">interface RelationshipOptions &#123;</div><div class="line">	<span class="attr">text</span>:string;</div><div class="line">	sex:number;</div><div class="line">	type:string;</div><div class="line">	reverse?:boolean;</div><div class="line">&#125;</div><div class="line">declare <span class="function"><span class="keyword">function</span> <span class="title">relationship</span>(<span class="params">relationshipOptions:RelationshipOptions</span>):<span class="title">string</span>;</span></div><div class="line"><span class="title">export</span> = <span class="title">relationship</span>;</div></pre></td></tr></table></figure>
 <p>使用方式</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// &lt;reference path="relationship.d.ts" /&gt;</span></div><div class="line"><span class="keyword">import</span> relationship = <span class="built_in">require</span>(<span class="string">'./relationship'</span>);</div><div class="line"></div><div class="line"><span class="keyword">let</span> s = relationship(&#123;</div><div class="line">	<span class="attr">text</span>:<span class="string">'爸爸的弟弟'</span>,</div><div class="line">	<span class="attr">sex</span>:<span class="number">1</span>,</div><div class="line">	<span class="attr">type</span>:<span class="string">'default'</span>,</div><div class="line">	<span class="attr">reverse</span>:<span class="literal">true</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(s); <span class="comment">//侄子</span></div></pre></td></tr></table></figure>
 <p>而项目引用的另一个库<a href="http://blog.jjonline.cn/userInterFace/173.html" target="_blank" rel="external">《1900年至2100年公历、农历互转Js代码》</a>，API也比较简单，但ionic1项目中对其进行了比较多的扩展（日期加减），因此采用重写自己的Typescript版本。项目地址 <a href="https://github.com/kinegratii/ts-calendars。" target="_blank" rel="external">https://github.com/kinegratii/ts-calendars。</a></p>
